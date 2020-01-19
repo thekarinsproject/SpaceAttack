@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c6b99659508753e4d9d9b1db18845526
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FREEDOM
+  fontNames:
+  - FREEDOM
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4ebeb7a6c46a3154d82a5ff80edbe041, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
