@@ -4,13 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - EnemyR
-  - BulletR
-  - EnemyB
-  - BulletB
-  - EBlueBullet
-  - ERedBullet
   - EnemyAsteroid
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX

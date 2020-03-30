@@ -1084,15 +1084,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7700357819f17e49b93cb7d76dd258f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bluePrefab: {fileID: 6318540611999141222, guid: a1ed6c8cb755b304596b79e94073fb5b,
-    type: 3}
-  redPrefab: {fileID: 7567108385721030829, guid: bbf7f4f7b323f7849aca49c365fac761,
+  bulletPrefab: {fileID: 6318540611999141222, guid: a1ed6c8cb755b304596b79e94073fb5b,
     type: 3}
   shootPos: {fileID: 343866355}
   particlePrefab: {fileID: 3025602196460800725, guid: 8c99d52005b7dcb4b8916dc43b0c1591,
     type: 3}
-  redSprite: {fileID: 0}
-  blueSprite: {fileID: 0}
 --- !u!50 &877969241
 Rigidbody2D:
   serializedVersion: 4

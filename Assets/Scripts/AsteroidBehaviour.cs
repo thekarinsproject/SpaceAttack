@@ -24,7 +24,7 @@ public class AsteroidBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals("BulletB") || collision.tag.Equals("BulletR")) {
+        if (collision.tag.Equals("Bullet")) {
             Destroy(collision.gameObject); // Destroy the bullet
             GameController.AsteroidsDestroyed += 1;
             GameObject particle = Instantiate(explosion, this.transform.position, this.transform.rotation) as GameObject;
