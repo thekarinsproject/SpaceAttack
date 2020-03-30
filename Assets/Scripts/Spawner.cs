@@ -21,10 +21,12 @@ public class Spawner : MonoBehaviour
         while (!GameController.IsGameOver)
         {
             // Randomize the spawn seconds
-            spawnSeconds = Random.Range(0.4f, 1.2f);
+            spawnSeconds = Random.Range(0.1f, 0.5f);
 
-            yield return new WaitForSeconds(Random.Range(spawnSeconds -= 0.1f, spawnSeconds += 0.5f));
-            Instantiate(prefab, spawnPoint.transform.position, prefab.transform.rotation);
+            yield return new WaitForSeconds(spawnSeconds);
+            Vector3 spawnPosition;
+            spawnPosition = Camera.main.ViewportToWorldPoint(new Vector3(Random.value, 1f, 1f));
+            Instantiate(prefab, spawnPosition, prefab.transform.rotation);
             
         }
     }

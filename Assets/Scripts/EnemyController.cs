@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControllerTutorial : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     float health, speed;
     public float fireRate;

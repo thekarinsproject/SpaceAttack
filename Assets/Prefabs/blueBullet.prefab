@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6654157550957378503}
   m_Layer: 0
   m_Name: blueBullet
-  m_TagString: BulletB
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e379df3cd502aa41ae63e9a7420b43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firedByPlayer: 1
 --- !u!70 &6654157550957378503
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

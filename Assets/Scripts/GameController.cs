@@ -30,6 +30,10 @@ public class GameController : MonoBehaviour
         pauseMenu.SetActive(false);
         gameOverMenu.SetActive(false);
         scoreText = scoreGO.GetComponent<Text>();
+#if UNITY_STANDALONE
+        // Disables the android input in Pc builds
+        DisableAndroidInput();
+#endif
     }
 
     private void Update()

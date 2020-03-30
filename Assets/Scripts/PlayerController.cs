@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerController : MonoBehaviour
 {
     float speed = 2f;
     Rigidbody2D rb;
-    private float xMin, xMax, yMin, yMax;
     public GameObject bulletPrefab, shootPos;
     bool hit;
 
@@ -18,16 +18,17 @@ public class PlayerController : MonoBehaviour
      float fireRate;
      float nextFire;
 
+#if UNITY_ANDROID
+    [SerializeField]
+    private Joystick joystick;
+#endif
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        xMin = -3.7f;
-        xMax = 3.7f;
-        yMin = -2.7f;
-        yMax = 2.7f;
-        fireRate = 0.07f;
+        fireRate = 0.25f;
         hit = false;
+
     }
     // Update is called once per frame
 
@@ -47,18 +48,24 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
+        float horizontal;
+        float vertical;
+#if UNITY_STANDALONE
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+#elif UNITY_ANDROID
+        horizontal = joystick.Horizontal;
+        vertical = joystick.Vertical;
+#endif
         Vector2 movement = new Vector2(horizontal, vertical);
         rb.velocity = movement * speed;
 
-
+        /*
         rb.position = new Vector3(
             Mathf.Clamp(rb.position.x, xMin, xMax),
             Mathf.Clamp(rb.position.y, yMin, yMax),
             0f);
-
+            */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,7 +78,7 @@ public class PlayerController : MonoBehaviour
             GameObject particle = Instantiate(particlePrefab, this.transform.position, this.transform.rotation) as GameObject;
             Destroy(particle, 2f);
         }
-        else if (collision.tag.Contains("Bullet")) 
+        else if (collision.tag.Contains("EBlueBullet")) 
         {
             hit = true;
             GameController.IsGameOver = true;
@@ -81,6 +88,18 @@ public class PlayerController : MonoBehaviour
             Destroy(particle, 2f);
         }
 
+    }
+
+    public void ShootButton() {
+        PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
+        if (player != null)
+        {
+            if (Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(bulletPrefab, shootPos.transform.position, shootPos.transform.rotation);
+            }
+        }
     }
 
 }
