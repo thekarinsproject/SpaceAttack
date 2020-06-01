@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Code refactored, moved health checks and destroy inside the Damage Method
-        if (collision.tag.Equals("BulletB") || collision.tag.Equals("BulletR")) {
+        if (collision.tag.Equals("Bullet")) {
             Damage();
             Destroy(collision.gameObject);
         }

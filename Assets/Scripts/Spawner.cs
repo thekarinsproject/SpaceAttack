@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator spawnObject() {
 
-        while (!GameController.IsGameOver)
+        while (true)
         {
             // Randomize the spawn seconds
             spawnSeconds = Random.Range(0.1f, 0.5f);
@@ -33,9 +33,11 @@ public class Spawner : MonoBehaviour
 
     IEnumerator spawnBoss()
     {
-        while (!GameController.IsGameOver) // while (!gameover)
-        { 
-            if (!GameController.IsBossSpawned && GameController.AsteroidsDestroyed % 30 == 0)
+
+        while (true) // while (!gameover)
+        {
+          
+            if (!GameController.IsBossSpawned && GameController.AsteroidsDestroyed % 30 == 0 && GameController.AsteroidsDestroyed > 0)
             {
                 Instantiate(bossPrefab, spawnPoint.transform.position, bossPrefab.transform.rotation);
                 GameController.IsBossSpawned = true;

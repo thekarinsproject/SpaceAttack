@@ -7,6 +7,9 @@ TagManager:
   - EnemyAsteroid
   - Enemy
   - Bullet
+  - EBlueBullet
+  - Joystick
+  - Ads
   layers:
   - Default
   - TransparentFX

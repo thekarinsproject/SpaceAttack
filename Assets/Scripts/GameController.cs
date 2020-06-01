@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     private static int asteroidsDestroyed, score;
-    private static bool isBossSpawned, isGameOver, isGamePaused;
-    public GameObject bossSpawner, pauseMenu, gameOverMenu, scoreGO;
-    private static Text scoreText;
+    private static bool isBossSpawned, isGameOver, isGamePaused, coroutinesEnabled;
+    public GameObject asteroidSpawner, bossSpawner, pauseMenu, gameOverMenu, scoreGO;
+    private static GameObject player;
+    private static TextMeshProUGUI scoreText;
+
 
 
 
@@ -18,6 +21,8 @@ public class GameController : MonoBehaviour
 
     public static bool IsGameOver { get => isGameOver; set => isGameOver = value; }
     public static bool IsGamePaused { get => isGamePaused; set => isGamePaused = value; }
+    public static GameObject Player { get => player; set => player = value; }
+
 
     // Start is called before the first frame update
     void Awake()
@@ -26,24 +31,28 @@ public class GameController : MonoBehaviour
         IsBossSpawned = false;
         IsGamePaused = false;
         isGameOver = false;
+        coroutinesEnabled = true;
+        Player = GameObject.FindGameObjectWithTag("Player");
         bossSpawner.SetActive(false);
         pauseMenu.SetActive(false);
         gameOverMenu.SetActive(false);
-        scoreText = scoreGO.GetComponent<Text>();
+        scoreText = scoreGO.GetComponent<TextMeshProUGUI>();
 #if UNITY_STANDALONE
         // Disables the android input in Pc builds
-        DisableAndroidInput();
+        uiManager.DisableAndroidInput();
 #endif
     }
 
     private void Update()
     {
-        if (AsteroidsDestroyed > 1) {
-            bossSpawner.SetActive(true);
-        }
+        bossSpawner.SetActive(true);
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
-            IsGamePaused = !IsGamePaused;
+        #if UNITY_STANDALONE
+        // Pauses the game on desktop build
+                if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+                IsGamePaused = !IsGamePaused;
+        #endif
+
 
         if (IsGamePaused)
         {
@@ -58,16 +67,34 @@ public class GameController : MonoBehaviour
         if (isGameOver)
         {
             gameOverMenu.SetActive(true);
+            disableCoroutines();
         }
         else {
             gameOverMenu.SetActive(false);
+            enableCoroutines();
         }
     }
 
     public static void SetScore(int quantity) {
         score += quantity;
-        scoreText.text = "Score: " + score;
+        scoreText.SetText("Score: {0}" , score);
     }
 
+    void disableCoroutines() {
+        if (coroutinesEnabled) {
+            asteroidSpawner.GetComponent<Spawner>().StopCoroutine("spawnObject");
+            bossSpawner.GetComponent<Spawner>().StopCoroutine("spawnBoss");
+            coroutinesEnabled = false;
+        }
+    }
+
+    void enableCoroutines() {
+
+        if (!coroutinesEnabled) {
+            asteroidSpawner.GetComponent<Spawner>().StartCoroutine("spawnObject");
+            bossSpawner.GetComponent<Spawner>().StartCoroutine("spawnBoss");
+            coroutinesEnabled = true;
+        }
+    }
 
 }
